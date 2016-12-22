@@ -1,3 +1,140 @@
 linux 安装wget
     yum -y install wget
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------
+
+下载安装
+wget http://dl.wdlinux.cn/files/lanmp_v3.1.tar.gz
+tar zxvf lanmp_v3.1.tar.gz
+sh lanmp.sh                   默认安装
+sh lanmp.sh cus             自定义安装
+
+默认安装的版本是
+apache-2.4.18
+nginx-1.8.1
+php-5.6.21
+mysql-5.5.49
+
+如需自定义软件的安装，在安装脚本后面增加 cus 即可
+如上所述，这样就可以选择自己要安装的相应版本
+
+软件安装目录
+/www/wdlinux
+数据库文件目录
+/www/wdlinux/mysql/data
+
+已在CentOS 6.X/7.X上测试通过，其它系统未能亲测，大家安装时可把问题发到论坛上来
+已知php5.3在CentOS 7的系统上安装有问题
+
+已集成wdcp_v3.0.2的管理面板，安装好可通过面板管理服务器和创建站点，数据库，FTP等
+关于wdcp的介绍或使用，请看 http://www.wdlinux.cn/bbs/forum-23-1.html
+
+卸载方法
+sh lanmp.sh un
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------
+VESTACP面板安装与卸载
+ 厘米  2015-07-28  Linux  878 次浏览  0条评论
+VestaCP是一款强大的vps控制面板，是由俄罗斯的人编写的VPS主机控制面板，支持中文，支持Apache、Nginx、Bind、Exim、Dovecot、vsftpd、MySQL等，提供可视化的网站管理面板，非常适合多用户使用。VestaCP还自带了免费邮局功能和VPS性能监控，还能通过web面板修改防火墙规则！安装起来也是非常简单。
+1.使用Putty/Xshell/SecureCRT等工具连接到服务器上。
+2.执行以下命令下载安装脚本
+curl -O http://vestacp.com/pub/vst-install.sh
+3.执行脚本
+bash vst-install.sh
+脚本会让你输入有效的email地址，然后大概十分钟左右就装好了！装好后会显示登录地址和用户名密码。
+vestacp
+通过浏览器登录VestaCP，你会发现默认是英文的，点击右上角的admin就可以修改了。
+vestacp面板中文
+VestaCP支持Centos,Ubuntu,Debian,RHEL,为了顺利安装，推荐使用纯净系统。如果安装失败，可使用强制安装
+bash vst-install.sh --force
+安装VestaCP内存小于1G的为Mirco型，1G-3G的为 Mini型 ，3G-7G为 Medium型，7G以上为Large型，其中只有Medium和Large型才安装 防病毒垃圾组件，Micro型没有phpfcgi的支持。
+
+卸载VESTACP
+1. 停止VESTA服务
+service vesta stop
+2. 删除VESTA的安装程序
+CentOS:
+yum remove vesta*
+rm -f /etc/yum.repos.d/vesta.repo
+Debian/Ubuntu:
+apt-get remove vesta*
+rm -f /etc/apt/sources.list.d/vesta.list
+3. 删除数据目录和计划任务
+rm -rf /usr/local/vesta
+此外最好删除admin用户和相关计划任务
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------
+AMH4.2 编译安装
+AMH 4.2 为独立的一套LNMP/Nginx虚拟主机面板，安装请使用纯净系统。
+编译安装方式 (安装时间15至25分钟)
+
+1) 使用 root 账号登录 Linux 服务器。
+
+2) 执行 amh 安装脚本。
+
+wget http://amh.sh/file/AMH/4.2/amh.sh && chmod 775 amh.sh && ./amh.sh 2>&1 | tee amh.log
+
+3) 根据提示输入选择1~3选项。1为安装amh，2为卸载amh，3为退出不做操作。
+
+输入1回车，接着输入MySQL与AMH密码即进入安装流程，安装过程大约需10至20分钟(以服务器性能为准)，最后如看到安装成功提示，说明系统已安装完成。
+
+成功安装后有必要请删除日志文件:amh.log，如安装失败需协助安装请把错误日志反馈我们。
+
+访问http://ip:8888 即可进入AMH web端管理，默认账号为admin。
+
+
+安装小提示
+安装amh过程中如果服务器解析不了amh.sh域名的情况，
+
+请先更换服务器的DNS再安装AMH。执行以下命令完成更换DNS解析：
+
+echo -e "options timeout:1 attempts:1 rotate\nnameserver 8.8.8.8\nnameserver 114.114.114.114" >/etc/resolv.conf;
+
+AMH4.2 编译安装支持的系统
+支持目前 CentOS、Ubuntu、Debian 以下版本
+CentOS 6 x64
+CentOS 6 i386
+CentOS 5 x64
+CentOS 5 i386
+Ubuntu 12 x64
+Ubuntu 12 i386
+Debian 6 x64 (squeeze)
+Debian 6 i386 (squeeze)
